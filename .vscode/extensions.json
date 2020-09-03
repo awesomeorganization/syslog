@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "amatiasq.sort-imports",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "mgmcdermott.vscode-language-babel",
+    "sburg.vscode-javascript-booster",
+    "visualstudioexptteam.vscodeintellicode"
+  ]
+}

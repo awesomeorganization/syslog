@@ -1,0 +1,34 @@
+{
+  "extends": ["eslint:recommended", "prettier"],
+  "env": {
+    "es2020": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    "camelcase": "warn",
+    "consistent-return": "warn",
+    "curly": "warn",
+    "default-case-last": "warn",
+    "dot-notation": "warn",
+    "eqeqeq": "warn",
+    "no-duplicate-imports": "warn",
+    "no-lonely-if": "warn",
+    "no-return-assign": "warn",
+    "no-return-await": "warn",
+    "no-use-before-define": "warn",
+    "no-var": "warn",
+    "object-shorthand": "warn",
+    "prefer-arrow-callback": "warn",
+    "prefer-const": "warn",
+    "prefer-rest-params": "warn",
+    "prefer-spread": "warn",
+    "require-await": "warn",
+    "sort-imports": "warn",
+    "sort-keys": "warn",
+    "sort-vars": "warn"
+  }
+}
