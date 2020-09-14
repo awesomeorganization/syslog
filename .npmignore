@@ -1,5 +1,6 @@
 .vscode
 .dockerignore
+.editorconfig
 .eslintignore
 .eslintrc.json
 .gitignore

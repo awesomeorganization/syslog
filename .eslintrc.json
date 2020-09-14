@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": ["eslint:recommended", "plugin:node/recommended", "prettier"],
   "env": {
     "es2020": true,
     "node": true
@@ -21,6 +21,17 @@
     "no-return-await": "warn",
     "no-use-before-define": "warn",
     "no-var": "warn",
+    "node/exports-style": ["warn", "module.exports"],
+    "node/file-extension-in-import": ["warn", "always"],
+    "node/prefer-global/buffer": ["warn", "always"],
+    "node/prefer-global/console": ["warn", "always"],
+    "node/prefer-global/process": ["warn", "always"],
+    "node/prefer-global/text-decoder": ["warn", "always"],
+    "node/prefer-global/text-encoder": ["warn", "always"],
+    "node/prefer-global/url-search-params": ["warn", "always"],
+    "node/prefer-global/url": ["warn", "always"],
+    "node/prefer-promises/dns": "warn",
+    "node/prefer-promises/fs": "warn",
     "object-shorthand": "warn",
     "prefer-arrow-callback": "warn",
     "prefer-const": "warn",
