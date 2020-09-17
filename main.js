@@ -44,7 +44,7 @@ export const rfc5424 = ({
   if (typeof severity === 'string') {
     severity = SEVERITIES[severity.toUpperCase()] ?? SEVERITIES.DEBUG
   }
-  return Buffer.from(`<${Math.imul(facility, 8) + severity}>1 ${timestamp} ${hostname} ${appName} ${procId} ${msgId} - ${message}\0`)
+  return Buffer.from(`<${Math.imul(facility, 8) + severity}>1 ${timestamp} ${hostname} ${appName} ${procId} ${msgId} - ${message}`)
 }
 
 // async -> sync
