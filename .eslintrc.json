@@ -9,6 +9,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "arrow-body-style": ["warn", "always"],
     "camelcase": "warn",
     "consistent-return": "warn",
     "curly": "warn",

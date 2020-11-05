@@ -1,11 +1,11 @@
-import { rfc5424, syslog } from './main.js'
+import { FACILITIES, SEVERITIES, rfc5424, syslog } from '../main.js'
 
-import { createServer } from 'net'
-import { createSocket } from 'dgram'
 import { deepStrictEqual } from 'assert'
+import { createServer as tcp } from 'net'
+import { createSocket as udp } from 'dgram'
 
-const APPNAME = 'TestAppName'
-const MESSAGE = 'Testing...'
+const APPNAME = 'APPNAME'
+const MESSAGE = 'MESSAGE'
 const TESTS = 100
 
 let QUEUE_TESTS = TESTS * 4
@@ -15,11 +15,20 @@ const messageListener = (message) => {
     message,
     rfc5424({
       appName: APPNAME,
+      eol: '\0',
+      facility: FACILITIES.LOCAL0,
+      hostname: '-',
       message: MESSAGE,
+      msgId: '-',
+      procId: '-',
+      severity: SEVERITIES.DEBUG,
+      structuredData: '-',
+      timestamp: '-',
     })
   )
   if (--QUEUE_TESTS === 0) {
-    process.exit(0)
+    // eslint-disable-next-line no-process-exit
+    process.exit()
   }
 }
 
@@ -34,7 +43,7 @@ const tcpMessageListener = (socket) => {
   })
 }
 
-const udp4 = createSocket(
+const udp4 = udp(
   {
     type: 'udp4',
   },
@@ -48,7 +57,14 @@ udp4.bind(
   async () => {
     console.log('udp4', udp4.address())
     const log = await syslog({
-      appName: APPNAME,
+      defaultAppName: APPNAME,
+      defaultEol: '\0',
+      defaultFacility: FACILITIES.LOCAL0,
+      defaultHostname: '-',
+      defaultMsgId: '-',
+      defaultProcId: '-',
+      defaultSeverity: SEVERITIES.DEBUG,
+      defaultStructuredData: '-',
       host: '127.0.0.1',
       port: 3001,
       protocol: 'udp4',
@@ -56,12 +72,13 @@ udp4.bind(
     for (let i = 0; i !== TESTS; i++) {
       log({
         message: MESSAGE,
+        timestamp: '-',
       })
     }
   }
 )
 
-const udp6 = createSocket(
+const udp6 = udp(
   {
     ipv6Only: true,
     type: 'udp6',
@@ -76,7 +93,14 @@ udp6.bind(
   async () => {
     console.log('udp6', udp6.address())
     const log = await syslog({
-      appName: APPNAME,
+      defaultAppName: APPNAME,
+      defaultEol: '\0',
+      defaultFacility: FACILITIES.LOCAL0,
+      defaultHostname: '-',
+      defaultMsgId: '-',
+      defaultProcId: '-',
+      defaultSeverity: SEVERITIES.DEBUG,
+      defaultStructuredData: '-',
       host: '::1',
       port: 3002,
       protocol: 'udp6',
@@ -84,12 +108,13 @@ udp6.bind(
     for (let i = 0; i !== TESTS; i++) {
       log({
         message: MESSAGE,
+        timestamp: '-',
       })
     }
   }
 )
 
-const tcp4 = createServer(tcpMessageListener)
+const tcp4 = tcp(tcpMessageListener)
 tcp4.listen(
   {
     host: '127.0.0.1',
@@ -98,7 +123,14 @@ tcp4.listen(
   async () => {
     console.log('tcp4', tcp4.address())
     const log = syslog({
-      appName: APPNAME,
+      defaultAppName: APPNAME,
+      defaultEol: '\0',
+      defaultFacility: FACILITIES.LOCAL0,
+      defaultHostname: '-',
+      defaultMsgId: '-',
+      defaultProcId: '-',
+      defaultSeverity: SEVERITIES.DEBUG,
+      defaultStructuredData: '-',
       host: '127.0.0.1',
       port: 3003,
       protocol: 'tcp4',
@@ -106,12 +138,13 @@ tcp4.listen(
     for (let i = 0; i !== TESTS; i++) {
       await log({
         message: MESSAGE,
+        timestamp: '-',
       })
     }
   }
 )
 
-const tcp6 = createServer(tcpMessageListener)
+const tcp6 = tcp(tcpMessageListener)
 tcp6.listen(
   {
     host: '::1',
@@ -121,7 +154,14 @@ tcp6.listen(
   async () => {
     console.log('tcp6', tcp6.address())
     const log = syslog({
-      appName: APPNAME,
+      defaultAppName: APPNAME,
+      defaultEol: '\0',
+      defaultFacility: FACILITIES.LOCAL0,
+      defaultHostname: '-',
+      defaultMsgId: '-',
+      defaultProcId: '-',
+      defaultSeverity: SEVERITIES.DEBUG,
+      defaultStructuredData: '-',
       host: '::1',
       port: 3004,
       protocol: 'tcp6',
@@ -129,6 +169,7 @@ tcp6.listen(
     for (let i = 0; i !== TESTS; i++) {
       await log({
         message: MESSAGE,
+        timestamp: '-',
       })
     }
   }

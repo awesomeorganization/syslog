@@ -6,5 +6,6 @@
 .prettierrc.json
 .vscode
 *.log
+example
 node_modules
-test.js
+test
