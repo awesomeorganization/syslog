@@ -20,7 +20,7 @@ Full example in `/example` folder.
 ```
 import { syslog } from '@awesomeorganization/syslog'
 
-const main = async () => {
+const example = async () => {
   {
     const log = syslog({
       defaultStructuredData: {
@@ -55,5 +55,5 @@ const main = async () => {
   }
 }
 
-main()
+example()
 ```

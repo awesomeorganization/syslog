@@ -1,6 +1,6 @@
 import { syslog } from '@awesomeorganization/syslog'
 
-const main = async () => {
+const example = async () => {
   {
     const log = syslog({
       defaultStructuredData: {
@@ -26,7 +26,7 @@ const main = async () => {
       },
       host: 'logs-01.loggly.com',
       port: 6514,
-      protocol: 'tcp',
+      protocol: 'tls',
     })
 
     await log({
@@ -35,4 +35,4 @@ const main = async () => {
   }
 }
 
-main()
+example()

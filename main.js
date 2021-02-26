@@ -1,7 +1,4 @@
-import { hostname } from 'os'
-import { createConnection as tcp } from 'net'
-import { connect as tls } from 'tls'
-import { createSocket as udp } from 'dgram'
+/* eslint-disable node/no-unsupported-features/es-syntax */
 
 // REFERENCES
 // https://tools.ietf.org/html/rfc5424
@@ -63,7 +60,6 @@ export const rfc5424 = ({ appName, eol, facility, hostname, message, msgId, proc
   return Buffer.from(`<${priority}>1 ${timestamp} ${hostname} ${appName} ${procId} ${msgId} ${structuredData} ${message}${eol}`)
 }
 
-// sync -> async
 export const rfc5425 = ({
   defaultAppName,
   defaultEol,
@@ -75,13 +71,12 @@ export const rfc5425 = ({
   defaultStructuredData,
   ca,
   cert,
-  checkServerIdentity,
   family,
   host,
   key,
   port,
 }) => {
-  return ({
+  return async ({
     appName = defaultAppName,
     eol = defaultEol,
     facility = defaultFacility,
@@ -93,6 +88,7 @@ export const rfc5425 = ({
     structuredData = defaultStructuredData,
     timestamp = new Date().toISOString(),
   }) => {
+    const { connect } = await import('tls')
     return new Promise((resolve, reject) => {
       const options = {
         ca,
@@ -102,10 +98,7 @@ export const rfc5425 = ({
         key,
         port,
       }
-      if (typeof checkServerIdentity === 'function') {
-        options.checkServerIdentity = checkServerIdentity
-      }
-      const socket = tls(options)
+      const socket = connect(options)
       socket.once('error', reject)
       socket.once('end', resolve)
       socket.once('connect', () => {
@@ -128,8 +121,7 @@ export const rfc5425 = ({
   }
 }
 
-// async -> sync
-export const rfc5426 = ({
+export const rfc5426 = async ({
   defaultAppName,
   defaultEol,
   defaultFacility,
@@ -142,12 +134,15 @@ export const rfc5426 = ({
   host,
   port,
 }) => {
+  const { createSocket } = await import('dgram')
   return new Promise((resolve, reject) => {
     const options = {
       0: {
+        ipv6Only: false,
         type: 'udp6',
       },
       4: {
+        ipv6Only: false,
         type: 'udp4',
       },
       6: {
@@ -155,7 +150,7 @@ export const rfc5426 = ({
         type: 'udp6',
       },
     }
-    const socket = udp(options[family])
+    const socket = createSocket(options[family])
     socket.connect(port, host)
     socket.once('error', reject)
     socket.once('connect', () => {
@@ -192,7 +187,6 @@ export const rfc5426 = ({
   })
 }
 
-// sync -> async
 export const rfc6587 = ({
   defaultAppName,
   defaultEol,
@@ -206,7 +200,7 @@ export const rfc6587 = ({
   host,
   port,
 }) => {
-  return ({
+  return async ({
     appName = defaultAppName,
     eol = defaultEol,
     facility = defaultFacility,
@@ -218,8 +212,9 @@ export const rfc6587 = ({
     structuredData = defaultStructuredData,
     timestamp = new Date().toISOString(),
   }) => {
+    const { createConnection } = await import('net')
     return new Promise((resolve, reject) => {
-      const socket = tcp({
+      const socket = createConnection({
         family,
         host,
         port,
@@ -249,11 +244,10 @@ export const rfc6587 = ({
 export const syslog = ({
   ca,
   cert,
-  checkServerIdentity,
   defaultAppName = process.argv[process.argv.length - 1],
   defaultEol = '\0',
   defaultFacility = FACILITIES.LOCAL0,
-  defaultHostname = hostname(),
+  defaultHostname = '-',
   defaultMsgId = '-',
   defaultProcId = process.pid,
   defaultSeverity = SEVERITIES.DEBUG,
@@ -268,7 +262,6 @@ export const syslog = ({
       return rfc5425({
         ca,
         cert,
-        checkServerIdentity,
         defaultAppName,
         defaultEol,
         defaultFacility,
@@ -279,7 +272,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 0,
         host,
-        hostname,
         key,
         port,
       })
@@ -288,7 +280,6 @@ export const syslog = ({
       return rfc5425({
         ca,
         cert,
-        checkServerIdentity,
         defaultAppName,
         defaultEol,
         defaultFacility,
@@ -299,7 +290,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 4,
         host,
-        hostname,
         key,
         port,
       })
@@ -308,7 +298,6 @@ export const syslog = ({
       return rfc5425({
         ca,
         cert,
-        checkServerIdentity,
         defaultAppName,
         defaultEol,
         defaultFacility,
@@ -319,7 +308,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 6,
         host,
-        hostname,
         key,
         port,
       })
@@ -336,7 +324,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 0,
         host,
-        hostname,
         port,
       })
     }
@@ -352,7 +339,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 4,
         host,
-        hostname,
         port,
       })
     }
@@ -368,7 +354,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 6,
         host,
-        hostname,
         port,
       })
     }
@@ -384,7 +369,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 0,
         host,
-        hostname,
         port,
       })
     }
@@ -400,7 +384,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 4,
         host,
-        hostname,
         port,
       })
     }
@@ -416,7 +399,6 @@ export const syslog = ({
         defaultStructuredData,
         family: 6,
         host,
-        hostname,
         port,
       })
     }

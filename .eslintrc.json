@@ -1,12 +1,15 @@
 {
   "extends": ["eslint:recommended", "plugin:node/recommended", "prettier"],
   "env": {
-    "es2020": true,
+    "es2021": true,
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
   },
   "rules": {
     "arrow-body-style": ["warn", "always"],
