@@ -1,3 +1,5 @@
+/* eslint-disable node/no-unsupported-features/es-syntax */
+
 import { syslog } from '@awesomeorganization/syslog'
 
 const example = async () => {

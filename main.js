@@ -167,20 +167,23 @@ export const rfc5426 = async ({
           structuredData = defaultStructuredData,
           timestamp = new Date().toISOString(),
         }) => {
-          socket.send(
-            rfc5424({
-              appName,
-              eol,
-              facility,
-              hostname,
-              message,
-              msgId,
-              procId,
-              severity,
-              structuredData,
-              timestamp,
-            })
-          )
+          return new Promise((callback) => {
+            socket.send(
+              rfc5424({
+                appName,
+                eol,
+                facility,
+                hostname,
+                message,
+                msgId,
+                procId,
+                severity,
+                structuredData,
+                timestamp,
+              }),
+              callback
+            )
+          })
         }
       )
     })

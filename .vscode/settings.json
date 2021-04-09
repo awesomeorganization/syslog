@@ -1,7 +1,9 @@
 {
   "editor.autoClosingBrackets": "always",
+  "editor.autoClosingOvertype": "always",
   "editor.autoClosingQuotes": "always",
   "editor.autoIndent": "full",
+  "editor.autoSurround": "languageDefined",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.insertSpaces": true,
@@ -13,6 +15,8 @@
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "git.autofetch": true,
+  "git.confirmSync": false,
   "telemetry.enableCrashReporter": false,
-  "telemetry.enableTelemetry": false
+  "telemetry.enableTelemetry": false,
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }
