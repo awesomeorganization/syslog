@@ -1,7 +1,7 @@
 {
   "name": "@awesomeorganization/syslog",
   "description": "[ESM] The syslog protocol (rfc5424) client. Works with Node.js over udp (rfc5426), tcp (rfc6587) and tls (rfc5425)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "exports": "./main.js",
   "type": "module",
   "repository": "github:awesomeorganization/syslog",
