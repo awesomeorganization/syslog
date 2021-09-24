@@ -1,7 +1,7 @@
 {
   "name": "@awesomeorganization/syslog",
   "description": "[ESM] The syslog protocol (rfc5424) client. Works with Node.js over udp (rfc5426), tcp (rfc6587) and tls (rfc5425)",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "exports": "./main.js",
   "type": "module",
   "repository": "github:awesomeorganization/syslog",
@@ -10,21 +10,9 @@
     "name": "sergeysedoy97"
   },
   "devDependencies": {
-    "@awesomeorganization/servers": "1.0.2",
+    "@awesomeorganization/servers": "1.1.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-node": "11.1.0"
-  },
-  "peerDependencies": {
-    "eslint": "7.32.0",
-    "prettier": "2.4.1"
-  },
-  "peerDependenciesMeta": {
-    "eslint": {
-      "optional": true
-    },
-    "prettier": {
-      "optional": true
-    }
   },
   "keywords": [
     "rfc5424",
