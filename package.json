@@ -12,7 +12,7 @@
   "devDependencies": {
     "@awesomeorganization/servers": "1.1.0",
     "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-node": "11.1.0"
+    "eslint-plugin-n": "14.0.0"
   },
   "keywords": [
     "rfc5424",
